@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Azure.Management.Provision.Brokers.Clouds
 {
-    public class CloudBroker : ICloudBroker
+    public partial class CloudBroker : ICloudBroker
     {
         private readonly string clientId;
         private readonly string clientSecret;
