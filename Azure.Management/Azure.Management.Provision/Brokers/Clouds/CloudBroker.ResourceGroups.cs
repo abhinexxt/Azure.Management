@@ -17,5 +17,9 @@ namespace Azure.Management.Provision.Brokers.Clouds
                 .WithRegion(Region.EuropeWest)
                 .CreateAsync();
         }
+
+        public async ValueTask<bool> CheckResourceGroupExistsAsync(string resourceGroupName) =>
+            await this.azure.ResourceGroups.ContainAsync(resourceGroupName);
+        
     }
 }
