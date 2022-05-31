@@ -10,6 +10,9 @@ namespace Azure.Management.Provision.Brokers.Clouds
 {
     public partial class CloudBroker
     {
+        public async ValueTask<bool> CheckResourceGroupExistsAsync(string resourceGroupName) =>
+            await this.azure.ResourceGroups.ContainAsync(resourceGroupName);
+
         public async ValueTask<IResourceGroup> CreateResourceGroupAsync(string resourceGroupName)
         {
             return await this.azure.ResourceGroups
@@ -18,8 +21,10 @@ namespace Azure.Management.Provision.Brokers.Clouds
                 .CreateAsync();
         }
 
-        public async ValueTask<bool> CheckResourceGroupExistsAsync(string resourceGroupName) =>
-            await this.azure.ResourceGroups.ContainAsync(resourceGroupName);
+        public async ValueTask DeleteResourceGroupAsync(string resourceGroupName) =>
+            await this.azure.ResourceGroups.DeleteByNameAsync(resourceGroupName);
         
+
+
     }
 }

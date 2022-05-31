@@ -9,7 +9,9 @@ namespace Azure.Management.Provision.Brokers.Clouds
 {
     internal partial interface ICloudBroker
     {
-        ValueTask<IResourceGroup> CreateResourceGroupAsync(string resourceGroupName);
         ValueTask<bool> CheckResourceGroupExistsAsync(string resourceGroupName);
+        ValueTask<IResourceGroup> CreateResourceGroupAsync(string resourceGroupName);
+        ValueTask DeleteResourceGroupAsync(string resourceGroupName);
+
     }
 }
