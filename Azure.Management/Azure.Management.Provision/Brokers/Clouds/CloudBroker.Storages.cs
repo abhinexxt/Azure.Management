@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Azure.Management.Provision.Models.Storages;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.Management.Sql.Fluent;
@@ -25,6 +26,15 @@ namespace Azure.Management.Provision.Brokers.Clouds
                 .Define(sqlDatabaseName)
                 .WithExistingSqlServer(sqlServer)
                 .CreateAsync();
+        }
+
+        public SqlDatabaseAccess GetSqlDatabaseAccess()
+        {
+            return new SqlDatabaseAccess
+            {
+                AdminName = this.adminName,
+                AdminAccess = this.adminAccess
+            };
         }
     }
 }
