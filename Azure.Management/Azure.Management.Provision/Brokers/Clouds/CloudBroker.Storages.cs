@@ -18,5 +18,13 @@ namespace Azure.Management.Provision.Brokers.Clouds
                 .CreateAsync();
 
         }
+
+        public async ValueTask<ISqlDatabase> CreateSqlDatabaseAsync(string sqlDatabaseName, ISqlServer sqlServer)
+        {
+            return await this.azure.SqlServers.Databases
+                .Define(sqlDatabaseName)
+                .WithExistingSqlServer(sqlServer)
+                .CreateAsync();
+        }
     }
 }
