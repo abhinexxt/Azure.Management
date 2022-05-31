@@ -1,10 +1,6 @@
-﻿using Microsoft.Azure.Management.ResourceManager.Fluent;
+﻿using System.Threading.Tasks;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Azure.Management.Provision.Brokers.Clouds
 {
@@ -23,7 +19,7 @@ namespace Azure.Management.Provision.Brokers.Clouds
 
         public async ValueTask DeleteResourceGroupAsync(string resourceGroupName) =>
             await this.azure.ResourceGroups.DeleteByNameAsync(resourceGroupName);
-        
+
 
 
     }

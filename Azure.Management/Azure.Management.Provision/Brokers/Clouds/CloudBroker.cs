@@ -1,12 +1,8 @@
-﻿using Microsoft.Azure.Management.Fluent;
+﻿using System;
+using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Azure.Management.Provision.Brokers.Clouds
 {

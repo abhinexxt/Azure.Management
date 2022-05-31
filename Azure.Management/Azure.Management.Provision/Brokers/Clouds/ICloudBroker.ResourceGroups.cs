@@ -1,13 +1,9 @@
-﻿using Microsoft.Azure.Management.ResourceManager.Fluent;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
 
 namespace Azure.Management.Provision.Brokers.Clouds
 {
-    internal partial interface ICloudBroker
+    public partial interface ICloudBroker
     {
         ValueTask<bool> CheckResourceGroupExistsAsync(string resourceGroupName);
         ValueTask<IResourceGroup> CreateResourceGroupAsync(string resourceGroupName);
