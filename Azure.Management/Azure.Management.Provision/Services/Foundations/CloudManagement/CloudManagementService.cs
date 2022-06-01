@@ -94,10 +94,34 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
             };
         }
 
+        public async ValueTask<IWebApp> ProvisionWebAppAsync(
+            string projectName,
+            string environment,
+            string dbConnectionString,
+            IAppServicePlan appServicePlan,
+            IResourceGroup resourceGroup)
+        {
+            string webAppName = $"{projectName}-{environment}".ToLower();
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {webAppName} ...");
+
+            IWebApp webApp = await this.cloudBroker.CreateWebAppAsync(
+                webAppName,
+                dbConnectionString,
+                appServicePlan,
+                resourceGroup);
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {webAppName} completed!");
+
+            return webApp;
+        }
+
         private string GenerateDbConnectionString(ISqlDatabase sqlDatabase)
         {
             SqlDatabaseAccess access = this.cloudBroker.GetSqlDatabaseAccess();
-            return  $"Server=tcp:{sqlDatabase.SqlServerName}.database.windows.net,1433;" + 
+            return $"Server=tcp:{sqlDatabase.SqlServerName}.database.windows.net,1433;" +
                     $"Initial Catalog={sqlDatabase.Name};" +
                     $"User ID={access.AdminName};" +
                     $"Password={access.AdminAccess};";

@@ -28,5 +28,12 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
             string projectName,
             string environment,
             ISqlServer sqlServer);
+
+        ValueTask<IWebApp> ProvisionWebAppAsync(
+            string projectName,
+            string environment,
+            string dbConnectionString,
+            IAppServicePlan appServicePlan,
+            IResourceGroup resourceGroup);
     }
 }
