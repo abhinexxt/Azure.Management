@@ -8,7 +8,7 @@ using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.Sql.Fluent;
 
-namespace Azure.Management.Provision.Services.Foundations.CloudManagement
+namespace Azure.Management.Provision.Services.Foundations.CloudManagements
 {
     public interface ICloudManagementService
     {
