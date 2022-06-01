@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Azure.Management.Provision.Brokers.Configurations
 {
-    public class ConfigurationsBroker
+    public class ConfigurationsBroker : IConfigurationsBroker
     {
-        public CloudManagementConfiguration GetConfiguration()
+        public CloudManagementConfiguration GetConfigurations()
         {
             IConfigurationRoot configurationRoot = new ConfigurationBuilder()
                 .SetBasePath(basePath: Directory.GetCurrentDirectory())

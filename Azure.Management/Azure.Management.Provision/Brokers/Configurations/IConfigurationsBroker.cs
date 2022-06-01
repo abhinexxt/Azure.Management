@@ -9,6 +9,6 @@ namespace Azure.Management.Provision.Brokers.Configurations
 {
     public interface IConfigurationsBroker
     {
-        CloudManagementConfiguration GetConfiguration();
+        CloudManagementConfiguration GetConfigurations();
     }
 }
