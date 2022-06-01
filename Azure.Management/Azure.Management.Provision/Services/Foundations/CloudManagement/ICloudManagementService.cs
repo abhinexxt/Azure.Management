@@ -12,7 +12,9 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
 {
     public interface ICloudManagementService
     {
-        ValueTask<IResourceGroup> ProvisionResourceGroupAsync(string projectName, string environment);
+        ValueTask<IResourceGroup> ProvisionResourceGroupAsync(
+            string projectName,
+            string environment);
 
         ValueTask<IAppServicePlan> ProvisionAppServicePlanAsync(
             string projectName, 
@@ -35,5 +37,9 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
             string dbConnectionString,
             IAppServicePlan appServicePlan,
             IResourceGroup resourceGroup);
+
+        ValueTask DeprovisionResourceGroupAsync(
+            string projectName,
+            string environment);
     }
 }

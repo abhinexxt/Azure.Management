@@ -118,6 +118,31 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
             return webApp;
         }
 
+        public async ValueTask DeprovisionResourceGroupAsync(
+            string projectName,
+            string environment)
+        {
+            string resourceGroupName = $"{projectName}-RESOURCES-{environment}".ToUpper();
+
+            bool isResourceGroupExist = 
+                await this.cloudBroker.CheckResourceGroupExistsAsync(resourceGroupName);
+
+            if(isResourceGroupExist)
+            {
+                this.loggingBroker.LogActivity(
+                message: $"Deprovisioning {resourceGroupName}...");
+
+                await this.cloudBroker.DeleteResourceGroupAsync(resourceGroupName);
+
+                this.loggingBroker.LogActivity(
+                message: $"Deprovisioning {resourceGroupName} completed!");
+            }
+            else
+            {
+                this.loggingBroker.LogActivity(
+                message: $"Resource group {resourceGroupName} doesn't exist. No action taken.");
+            }
+        }
         private string GenerateDbConnectionString(ISqlDatabase sqlDatabase)
         {
             SqlDatabaseAccess access = this.cloudBroker.GetSqlDatabaseAccess();
