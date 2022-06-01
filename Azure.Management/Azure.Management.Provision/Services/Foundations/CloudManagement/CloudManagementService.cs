@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Azure.Management.Provision.Brokers.Clouds;
 using Azure.Management.Provision.Brokers.Loggings;
+using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 
 namespace Azure.Management.Provision.Services.Foundations.CloudManagement
@@ -23,13 +23,32 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
             this.loggingBroker.LogActivity(
                 message: $"Provisioning {resourceGroupName} ...");
 
-            IResourceGroup resourceGroup = 
+            IResourceGroup resourceGroup =
                 await this.cloudBroker.CreateResourceGroupAsync(resourceGroupName);
 
             this.loggingBroker.LogActivity(
                 message: $"Provisioning {resourceGroupName} completed!");
 
             return resourceGroup;
+        }
+
+        public async ValueTask<IAppServicePlan> ProvisionAppServicePlanAsync(
+            string projectName,
+            string environment,
+            IResourceGroup resourceGroup)
+        {
+            string appServicePlanName = $"{projectName}-PLAN-{environment}".ToUpper();
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {appServicePlanName} ...");
+
+            IAppServicePlan appServicePlan =
+                await this.cloudBroker.CreatePlanAsync(appServicePlanName, resourceGroup);
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {appServicePlanName} completed!");
+
+            return appServicePlan;
         }
     }
 }
