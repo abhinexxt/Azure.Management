@@ -3,6 +3,7 @@ using Azure.Management.Provision.Brokers.Clouds;
 using Azure.Management.Provision.Brokers.Loggings;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
+using Microsoft.Azure.Management.Sql.Fluent;
 
 namespace Azure.Management.Provision.Services.Foundations.CloudManagement
 {
@@ -49,6 +50,24 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
                 message: $"Provisioning {appServicePlanName} completed!");
 
             return appServicePlan;
+        }
+
+        public async ValueTask<ISqlServer> ProvisionSqlServerAsync(
+            string projectName,
+            string environment,
+            IResourceGroup resourceGroup)
+        {
+            string sqlServerName = $"{projectName}-dbserver-{environment}".ToLower();
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {sqlServerName} ...");
+
+            ISqlServer sqlServer = await this.cloudBroker.CreateSqlServerAsync(sqlServerName, resourceGroup);
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {sqlServerName} completed!");
+
+            return sqlServer;
         }
     }
 }
