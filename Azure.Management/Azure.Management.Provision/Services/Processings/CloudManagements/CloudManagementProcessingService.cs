@@ -66,6 +66,17 @@ namespace Azure.Management.Provision.Services.Processings.CloudManagements
             }
         }
 
+        private async ValueTask DeprovisionAsync(string projectName, CloudAction cloudAction)
+        {
+            List<string> environments = RetrieveEnvironments(cloudAction);
+
+            foreach (string environmentName in environments)
+            {
+                await this.cloudManagementService.DeprovisionResourceGroupAsync(
+                    projectName, 
+                    environmentName);
+            }
+        }
         private static List<string> RetrieveEnvironments(CloudAction cloudAction) =>
             cloudAction.Environments ?? new List<string>();
         
