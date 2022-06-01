@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Azure.Management.Provision.Brokers.Clouds;
 using Azure.Management.Provision.Brokers.Loggings;
+using Azure.Management.Provision.Models.Storages;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.Sql.Fluent;
@@ -68,6 +69,38 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
                 message: $"Provisioning {sqlServerName} completed!");
 
             return sqlServer;
+        }
+
+        public async ValueTask<SqlDatabase> ProvisionSqlDatabaseAsync(
+            string projectName,
+            string environment,
+            ISqlServer sqlServer)
+        {
+            string sqlDatabaseName = $"{projectName}-db-{environment}".ToLower();
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {sqlDatabaseName} ...");
+
+            ISqlDatabase sqlDatabase =
+                await this.cloudBroker.CreateSqlDatabaseAsync(sqlDatabaseName, sqlServer);
+
+            this.loggingBroker.LogActivity(
+                message: $"Provisioning {sqlDatabaseName} completed!");
+
+            return new SqlDatabase
+            {
+                Database = sqlDatabase,
+                ConnectionString = GenerateDbConnectionString(sqlDatabase)
+            };
+        }
+
+        private string GenerateDbConnectionString(ISqlDatabase sqlDatabase)
+        {
+            SqlDatabaseAccess access = this.cloudBroker.GetSqlDatabaseAccess();
+            return  $"Server=tcp:{sqlDatabase.SqlServerName}.database.windows.net,1433;" + 
+                    $"Initial Catalog={sqlDatabase.Name};" +
+                    $"User ID={access.AdminName};" +
+                    $"Password={access.AdminAccess};";
         }
     }
 }

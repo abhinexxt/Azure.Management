@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Management.Provision.Models.Storages;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.Sql.Fluent;
@@ -22,5 +23,10 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagement
             string projectName,
             string environment,
             IResourceGroup resourceGroup);
+
+        ValueTask<SqlDatabase> ProvisionSqlDatabaseAsync(
+            string projectName,
+            string environment,
+            ISqlServer sqlServer);
     }
 }
