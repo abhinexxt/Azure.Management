@@ -17,11 +17,17 @@ namespace Azure.Management.Provision.Brokers.Clouds
 
         public CloudBroker()
         {
-            this.clientId = Environment.GetEnvironmentVariable("AzureClientId");
-            this.clientSecret = Environment.GetEnvironmentVariable("AzureClientSecret");
-            this.tenantId = Environment.GetEnvironmentVariable("AzureTenantId");
-            this.adminName = Environment.GetEnvironmentVariable("AzureAdminName");
-            this.adminAccess = Environment.GetEnvironmentVariable("AzureAdminAccess");
+            //this.clientId = Environment.GetEnvironmentVariable("AzureClientId");
+            //this.clientSecret = Environment.GetEnvironmentVariable("AzureClientSecret");
+            //this.tenantId = Environment.GetEnvironmentVariable("AzureTenantId");
+            //this.adminName = Environment.GetEnvironmentVariable("AzureAdminName");
+            //this.adminAccess = Environment.GetEnvironmentVariable("AzureAdminAccess");
+
+            this.clientId = "ab2adbe5-1e2d-47e7-a57f-813745f75a75";
+            this.clientSecret = "S.T8Q~5w3~J4RiK.Cw59r3IMPVbCTYi6sIYjjbrR";
+            this.tenantId = "4b03170f-43a5-4348-b086-afcd50dc28c7";
+            this.adminName = "AzureAdminName";
+            this.adminAccess = "AzureAdminAccess";
             this.azure = AuthenticateAzure();
         }
 
@@ -37,7 +43,7 @@ namespace Azure.Management.Provision.Brokers.Clouds
             return Microsoft.Azure.Management.Fluent.Azure.Configure()
                 .WithLogLevel(HttpLoggingDelegatingHandler.Level.Basic)
                 .Authenticate(credentials)
-                .WithDefaultSubscription();
+                .WithSubscription("7a72c383-dade-4f73-898b-376916d83d02");
         }
     }
 }
