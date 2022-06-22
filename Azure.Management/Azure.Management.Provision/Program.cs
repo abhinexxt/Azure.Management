@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Azure.Management.Provision.Services.Processings.CloudManagements;
 
 namespace Azure.Management.Provision
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var cloudManagementProcessingService =
+                new CloudManagementProcessingService();
+
+            await cloudManagementProcessingService.ProcessAsync();
+
+            Console.ReadKey();
         }
     }
 }

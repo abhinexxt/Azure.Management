@@ -13,9 +13,10 @@ namespace Azure.Management.Provision.Brokers.Clouds
                 .Define(planName)
                 .WithRegion(Region.EuropeWest)
                 .WithExistingResourceGroup(resourceGroup)
-                .WithPricingTier(PricingTier.StandardS1)
-                .WithOperatingSystem(Microsoft.Azure.Management.AppService.Fluent.OperatingSystem.Windows)
+                .WithPricingTier(PricingTier.FreeF1)
+                .WithOperatingSystem(OperatingSystem.Windows)
                 .CreateAsync();
         }
+
     }
 }

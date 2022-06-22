@@ -32,6 +32,7 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagements
             ISqlServer sqlServer);
 
         ValueTask<IWebApp> ProvisionWebAppAsync(
+            string applicationName,
             string projectName,
             string environment,
             string dbConnectionString,

@@ -48,19 +48,28 @@ namespace Azure.Management.Provision.Services.Processings.CloudManagements
                     await this.cloudManagementService
                         .ProvisionAppServicePlanAsync(projectName, environmentName, resourceGroup);
 
-                ISqlServer sqlServer =
-                    await this.cloudManagementService
-                        .ProvisionSqlServerAsync(projectName,environmentName,resourceGroup);
+                //ISqlServer sqlServer =
+                //    await this.cloudManagementService
+                //        .ProvisionSqlServerAsync(projectName,environmentName,resourceGroup);
 
-                SqlDatabase sqlDatabase =
-                    await this.cloudManagementService
-                        .ProvisionSqlDatabaseAsync(projectName, environmentName, sqlServer);
+                //SqlDatabase sqlDatabase =
+                //    await this.cloudManagementService
+                //        .ProvisionSqlDatabaseAsync(projectName, environmentName, sqlServer);
 
-                IWebApp webApp = await this.cloudManagementService
+                IWebApp apiWebApp = await this.cloudManagementService
                         .ProvisionWebAppAsync(
+                            "api",
                             projectName,
                             environmentName,
-                            sqlDatabase.ConnectionString,
+                            "",
+                            appServicePlan,
+                            resourceGroup);
+                IWebApp uiWebApp = await this.cloudManagementService
+                        .ProvisionWebAppAsync(
+                            "ui",
+                            projectName,
+                            environmentName,
+                            "",
                             appServicePlan,
                             resourceGroup);
             }

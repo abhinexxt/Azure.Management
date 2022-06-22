@@ -95,13 +95,14 @@ namespace Azure.Management.Provision.Services.Foundations.CloudManagements
         }
 
         public async ValueTask<IWebApp> ProvisionWebAppAsync(
+            string applicationName,
             string projectName,
             string environment,
             string dbConnectionString,
             IAppServicePlan appServicePlan,
             IResourceGroup resourceGroup)
         {
-            string webAppName = $"{projectName}-{environment}".ToLower();
+            string webAppName = $"{projectName}-{applicationName}-{environment}".ToLower();
 
             this.loggingBroker.LogActivity(
                 message: $"Provisioning {webAppName} ...");
